@@ -7,7 +7,13 @@ Param(
 $parentDir = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
 
 # Spawn the vcpkg directly inside the temp folder to have a shorter path
-$vcpkgDir = "$env:TEMP/unreal-vcpkg"
+$tmpdir = $env:TEMP
+if ([string]::IsNullOrEmpty($tmpdir))
+{
+	$tmpdir = "/tmp"
+}
+
+$vcpkgDir = "${tmpdir}/unreal-vcpkg"
 
 # Print desired libraries for visibility
 Write-Host "Installing aws-sdk libraries: $awsLibraries in:$vcpkgDir to:$parentDir"

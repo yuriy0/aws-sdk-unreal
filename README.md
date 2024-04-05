@@ -61,6 +61,19 @@ The AWS initialization and shutdown are handled by `AwsIntegrationSubsystem` dur
 
 **Bonus**: The `build-vcpkg.ps1` script runs every the time Unreal Header Tool (UHT) updates the module's files. This means you will get updated binaries every time you modify the `AwsLibraries` variable.
 
+## Build binaries manually
+
+You can also build the binaries manually, this is useful for example if cross compiling on Windows to Linux.
+
+- Run:
+```
+pwsh -NoProfile -ExecutionPolicy Bypass -File  Extras/Scripts/build-vcpkg.ps1 -vcpkgTriplet x64-linux-unreal -awsLibraries core,ec2
+```
+
+- Replace the `awsLibraries` argument with the appropriate value (use `*` for everything)
+- Copy the contents of `Source/ThirdParty/AwsSdkLibrary/x64-linux-unreal` to the desired location (the build machine)
+- In `Source/ThirdParty/AwsSdkLibrary/AwsSdkLibrary.Build.cs` remove or comment out the call to `BuildAwsLibraries` in the matching platforms.
+
 ## Why is the cusotm allocator used
 
 TODO:
